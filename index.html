@@ -1,0 +1,53 @@
+create database quanlynguoidung
+
+use quanlynguoidung
+
+create table nhapt
+(
+manpt char(4) primary key,
+tennpt varchar(50),
+ngdk date,
+soud int
+)
+create table nguoidung 
+(
+mand char(4) primary key,
+tennd varchar(50),
+ngdktv date,
+gioitinh varchar(3),
+ngsinh date
+)
+create table ungdung (
+maud varchar(4) primary key,
+tenud varchar(50),
+manpt varchar(4),
+ngph date, 
+dluong decimal(15.2),
+loaiud char(50)
+)
+create table ghinhan (
+maud varchar(5) primary key,
+mand varchar (5),
+danhgia int,
+dangsd varchar(3)
+)
+alter table nguoidung modify column mand varchar(5)
+alter table ungdung modify column maud varchar(5)
+alter table ungdung add constraint FK_ungdung_manpt foreign key (manpt) references nhapt(manpt);
+alter table ghinhan add constraint FK_ghinhan_maud foreign key (maud) references ungdung(maud);
+alter table ghinhan add constraint FK_ghinhan_mand foreign key (mand) references nguoidung(mand);
+insert into nhapt values ('N001', 'GAMELOFT', '2006-06-20', 100)
+insert into nhapt values ('N002', 'KETCHAPP', '2010-07-18', 20)
+insert into nhapt values ('N003', 'FACEBOOK', '2006-02-27', 20)
+
+insert into NGUOIDUNG values ('ND001', 'HUYNH CONG KHANH', '2009-06-17', 'NAM', '1994-05-25')
+insert into NGUOIDUNG values ('ND002', 'NGUYEN MINH DAT', '2010-06-19', 'NAM', '1993-03-22')
+insert into NGUOIDUNG values ('ND003', 'HO QUY HAN', '2012-10-15', 'NU', '1994-02-14')
+
+insert into UNGDUNG values ('UD001', 'MESSENGER', 'N003', '2007-02-1', 6.5, 'CHAT')
+insert into UNGDUNG values ('UD002', 'STACK', 'N002', '2017-06-2', 42, 'GAME')
+insert into UNGDUNG values ('UD003', 'ASPHALT 8', 'N001', '2018-08-12', 1700, 'GAME')
+
+insert into GHINHAN values ('UD001', 'ND001', 5, 1)
+insert into GHINHAN values ('UD002', 'ND002', 4, 1)
+insert into GHINHAN values ('UD003', 'ND003', 4, 1)
